@@ -1,0 +1,33 @@
+Third-party software in the "with BepInEx" download of DiscoVoiceSpeed
+=====================================================================
+
+The following is included unmodified, as published at
+https://builds.bepinex.dev/projects/bepinex_be/755/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.755%2B3fab71a.zip
+apart from BepInEx\config\BepInEx.cfg, which only turns off the console window.
+
+BepInEx 6.0.0-be.755 (IL2CPP, win x64)
+  Files: BepInEx\core\*, BepInEx\patchers (empty), changelog.txt (BepInEx\plugins holds this mod)
+  License: GNU Lesser General Public License v2.1 (see BepInEx-LICENSE.txt)
+  Source: https://github.com/BepInEx/BepInEx, built from commit 3fab71a
+          (https://github.com/BepInEx/BepInEx/tree/3fab71a1914132a1ce3a545caf3192da603f2258)
+
+Unity Doorstop 4.5.0 (the BepInEx loader)
+  Files: winhttp.dll, doorstop_config.ini, .doorstop_version
+  License: GNU Lesser General Public License v2.1 (same text as BepInEx-LICENSE.txt)
+  Source: https://github.com/NeighTools/UnityDoorstop
+
+.NET runtime
+  Files: dotnet\*
+  License: MIT (https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
+  Source: https://github.com/dotnet/runtime
+
+BepInEx also bundles further libraries in BepInEx\core under their own
+open-source licenses, among them HarmonyX (MIT), Il2CppInterop (LGPL-3.0,
+https://github.com/BepInEx/Il2CppInterop; license texts:
+https://www.gnu.org/licenses/lgpl-3.0.txt and https://www.gnu.org/licenses/gpl-3.0.txt),
+Cpp2IL (MIT), MonoMod (MIT), Mono.Cecil (MIT), AsmResolver (MIT) and
+Iced (MIT). Their license texts are in each project's repository; see
+https://github.com/BepInEx/BepInEx for the list and links.
+
+DiscoVoiceSpeed itself is licensed under the Apache License 2.0 (see LICENSE
+and NOTICE).

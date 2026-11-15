@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>DiscoVoiceSpeed</AssemblyName>
+    <RootNamespace>DiscoVoiceSpeed</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <!-- No PDB, and no local build paths baked into the shipped DLL. -->
+    <DebugType>none</DebugType>
+    <PathMap>$(MSBuildProjectDirectory)=/_/</PathMap>
+    <Deterministic>true</Deterministic>
+    <!-- Also the config file name (BepInEx\config\<guid>.cfg): don't change after release. -->
+    <BepInExPluginGuid>stdannydan.discovoicespeed</BepInExPluginGuid>
+    <BepInExPluginName>DiscoVoiceSpeed</BepInExPluginName>
+    <Version>1.0.0</Version>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+      https://nuget.samboy.dev/v3/index.json
+    </RestoreAdditionalProjectSources>
+    <!-- Game install. Override with: dotnet build -p:GameDir="..." -->
+    <GameDir Condition="'$(GameDir)' == ''">D:\SteamLibrary\steamapps\common\Disco Elysium</GameDir>
+    <InteropDir>$(GameDir)\BepInEx\interop</InteropDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Compile against the oldest BepInEx we support (be.688, Furious Tare's build); the
+         plugin also runs on newer builds such as be.755, which the release zip ships. -->
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.688" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+  </ItemGroup>
+
+  <!-- Interop assemblies that BepInEx generates on the game's first run. -->
+  <ItemGroup>
+    <Reference Include="$(InteropDir)\*.dll" Private="false" />
+  </ItemGroup>
+
+  <!-- Copy the built plugin into the game's BepInEx\plugins folder (package.ps1 turns this off with -p:CopyToGame=false). -->
+  <Target Name="CopyToGame" AfterTargets="Build" Condition="'$(CopyToGame)' != 'false' And Exists('$(GameDir)\BepInEx\plugins')">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\BepInEx\plugins\DiscoVoiceSpeed" />
+  </Target>
+
+</Project>

@@ -1,0 +1,62 @@
+[size=5][b]Faster voiced dialogue, without the chipmunk effect[/b][/size]
+
+Plays Disco Elysium's voiced lines faster at the [b]same pitch[/b], like the playback speed setting on YouTube. Pick anything from [b]1x to 4x[/b] (2x by default) and change it in game with a hotkey.
+
+Disco Elysium never waits for a voice line to finish, only for you to click Continue or pick a reply. So a faster voice simply finishes sooner, and you keep reading at your own pace.
+
+[line]
+[size=4][b]Install[/b][/size]
+
+Two downloads, pick one:
+[list]
+[*][b]with BepInEx[/b]: if you don't have BepInEx yet. Includes BepInEx 6.0.0-be.755, with its console window turned off. Don't extract it over an existing BepInEx install; take the plugin-only file then.
+[*][b]plugin only[/b]: if you already have BepInEx 6 (be.688 or newer), e.g. from [url=https://www.nexusmods.com/discoelysium/mods/62]Furious Tare[/url].
+[*][b]Vortex users:[/b] install the plugin-only file (not yet tested with Vortex; reports welcome). The [url=https://www.nexusmods.com/site/mods/1643]Disco Elysium Vortex extension[/url] installs BepInEx for you.
+[/list]
+[list=1]
+[*]Find the game folder: in Steam, right-click Disco Elysium → Manage → Browse local files (the folder with [b]disco.exe[/b]).
+[*]Extract the zip [b]into that folder[/b]. Afterwards [b]BepInEx[/b] should be next to disco.exe.
+[*]Start the game. The [b]first start with BepInEx takes a minute or two longer[/b] and [b]needs an internet connection[/b] (BepInEx downloads some Unity files once); later starts are normal.
+[/list]
+[b]Steam Deck / Linux (Proton):[/b] untested, but BepInEx normally needs this launch option:
+[code]WINEDLLOVERRIDES="winhttp=n,b" %command%[/code]
+
+[line]
+[size=4][b]Hotkeys[/b][/size]
+
+[list]
+[*][b]Ctrl + =[/b]: faster (+0.25x, up to 4x)
+[*][b]Ctrl + -[/b]: slower (−0.25x, down to 1x)
+[*][b]Ctrl + 0[/b]: turn the speed-up off / on
+[/list]
+A short message near the top of the screen shows the new speed. Changes apply from the next line and are remembered. Numpad keys work too, and all hotkeys can be changed in [b]BepInEx\config\stdannydan.discovoicespeed.cfg[/b]. [b]Non-US keyboard?[/b] If = and - are awkward on your layout, use the numpad keys or set other hotkeys there.
+
+[line]
+[size=4][b]Compatibility[/b][/size]
+
+[list]
+[*][b]Furious Tare[/b]: works alongside it (tested with BepInEx be.688 and be.755).
+[*][b]Game updates[/b]: if an update changes what this mod hooks into, the mod switches itself off and voices play at normal speed. Nothing breaks.
+[*]Tested on the Steam version (build 23980936). The GOG version and Steam Deck are untested; reports welcome.
+[*]Ambient voice lines (e.g. the radio) stay at normal speed on purpose.
+[/list]
+
+[line]
+[size=4][b]Troubleshooting[/b][/size]
+
+[list]
+[*][b]Nothing changed?[/b] Open [b]BepInEx\LogOutput.log[/b] and search for "DiscoVoiceSpeed". It should say "speed-up available". No BepInEx folder or log means it isn't in the right folder.
+[*][b]Antivirus complains about winhttp.dll?[/b] That's BepInEx's loader, a known false positive.
+[*][b]Reporting a bug:[/b] set [b]Trace = true[/b] in the mod's config file, reproduce the problem, and post in the Bugs tab here or on [url=https://github.com/StDannyDan/disco-voice-speed/issues]GitHub[/url] with [b]BepInEx\LogOutput.log[/b] attached (it can contain folder paths from your PC; look it over first if that matters to you).
+[/list]
+
+[b]Uninstall:[/b] delete [b]BepInEx\plugins\DiscoVoiceSpeed[/b]. To remove BepInEx too (only if no other mods use it), delete BepInEx, dotnet, winhttp.dll, doorstop_config.ini, .doorstop_version and changelog.txt from the game folder.
+
+[line]
+[size=4][b]How it works[/b][/size]
+
+When the game starts a voice line, the mod reads its audio and speeds it up with a C# port of [url=https://github.com/waywardgeek/sonic]Sonic[/url], a speech speed-up algorithm made for screen readers (Android's ExoPlayer media player uses it too). It then plays the shorter copy, which takes a few tens of milliseconds per line. No game files are changed, and the mod contains no game assets.
+
+[b]Source code:[/b] [url=https://github.com/StDannyDan/disco-voice-speed]github.com/StDannyDan/disco-voice-speed[/url] (Apache 2.0)
+
+[size=1]Disco Elysium is a trademark of ZA/UM. This mod is not affiliated with or endorsed by ZA/UM.[/size]
